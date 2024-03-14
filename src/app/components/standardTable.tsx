@@ -5,11 +5,11 @@ const StandardTable = () => {
     <div>
       {' '}
       <div className="flex-col mb-12 text-center">
-        <h1 className="bg-black text-black font-bold text-lg px-4 py-2 mb-4">
+        <h1 className="bg-black text-black font-bold text-lg px-4 py-2 mb-4 ">
           Standard Data
         </h1>
-        <div className="flex flex-row items-center justify-center">
-          <table className="border-collapse border border-gray-800 text-sm mr-8">
+        <div className="flex flex-row items-center justify-center lg:flex-col">
+          <table className="border-collapse border border-gray-800 text-sm lg:mt-4">
             <thead className="text-black">
               <tr className="text-black">
                 <th className="border text-black border-gray-800 px-4 py-2">
@@ -76,7 +76,7 @@ const StandardTable = () => {
               </tr>
             </tbody>
           </table>
-          <table className="border-collapse border border-gray-800 text-sm mr-8">
+          <table className="border-collapse border border-gray-800 text-sm lg:mt-4">
             <thead className="text-black">
               <tr className="text-black">
                 <th className="border text-black border-gray-800 px-4 py-2">
@@ -144,7 +144,7 @@ const StandardTable = () => {
             </tbody>
           </table>
 
-          <table className="border-collapse border border-gray-800 text-sm">
+          <table className="border-collapse border border-gray-800 text-sm lg:mt-4">
             <thead className="text-black">
               <tr className="text-black">
                 <th className="border text-black border-gray-800 px-4 py-2">
