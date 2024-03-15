@@ -100,8 +100,8 @@ export default function Home() {
     Std FCR: ${data.find((item) => item.age == Number(formData.age))?.fcr}\n
     \n
     Feed: ${totalFeed} Bags Running\n
-    510: ${formData.totalFeed510}\n
-    511: ${formData.totalFeed511}\n\n
+    510: ${formData.totalFeed510} Bags\n
+    511: ${formData.totalFeed511} Bags\n\n
     Farm Stock: \n
     510: ${formData.farmStock510} Bags\n
     511: ${formData.farmStock511} Bags\n
