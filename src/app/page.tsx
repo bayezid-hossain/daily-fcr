@@ -72,7 +72,10 @@ export default function Home() {
   ): number => {
     // Calculate FCR using the formula
     // FCR = Total Feed / (Total Weight Gain)
-    const fcr = (totalDOCInput * (avgWeight / 1000)) / (totalFeed * 50);
+    const fcr = (
+      (totalFeed * 50) /
+      (totalDOCInput * (avgWeight / 1000))
+    ).toFixed(4);
     const currentDate = new Date();
 
     const day = String(currentDate.getDate()).padStart(2, '0');
@@ -107,7 +110,7 @@ export default function Home() {
     Medicine: ${formData.medicine}
     `;
     setMsgData(msg);
-    return fcr;
+    return Number(fcr);
   };
   const handleCopy = async () => {
     let dataToCopy = msgData;
@@ -132,12 +135,12 @@ export default function Home() {
   };
   return (
     <main className="bg-white flex min-h-screen items-center justify-center p-12 flex-col">
-      <div className="flex flex-col items-center mb-12">
+      <div className="flex flex-col items-center mb-12 w-full">
         <h1 className="bg-black text-black font-bold text-2xl italic px-4 py-2 mb-4">
           Daily FCR Calculator
         </h1>
-        <div>
-          <div className="flex flex-row mb-4 gap-x-4 lg:flex-col lg:gap-y-4">
+        <div className="w-full">
+          <div className="flex flex-row justify-around w-full mb-4 gap-x-4 lg:flex-col lg:gap-y-4">
             <form
               onSubmit={handleSubmit}
               className="flex flex-col items-end text-black gap-y-2"
