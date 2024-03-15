@@ -110,7 +110,14 @@ export default function Home() {
     return fcr;
   };
   const handleCopy = async () => {
-    await copy(msgData);
+    let dataToCopy = msgData;
+    let stringWithoutConsecutiveNewlines = dataToCopy.replace(/\n(?!\n)/g, '');
+    let stringWithoutSpaces = stringWithoutConsecutiveNewlines
+      .split('\n')
+      .map((line) => line.trim())
+      .join('\n');
+    console.log(stringWithoutSpaces);
+    await copy(stringWithoutSpaces);
     alert('Message copied to clipboard!');
   };
 
