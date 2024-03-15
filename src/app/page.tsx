@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import copy from 'clipboard-copy';
 const data = [
   { age: 1, weight: 61, fcr: 0.207 },
   { age: 2, weight: 79, fcr: 0.37 },
@@ -38,12 +39,6 @@ const data = [
 import React, { useState } from 'react';
 import StandardTable from './components/standardTable';
 
-const calculateFCR = (totalFeed: number, avgWeight: number): number => {
-  // Calculate FCR using the formula
-  // FCR = Total Feed / (Total Weight Gain)
-  return totalFeed / avgWeight;
-};
-
 export default function Home() {
   const [formData, setFormData] = useState({
     farmerName: '',
@@ -56,173 +51,272 @@ export default function Home() {
     totalMortality: '',
     avgWeight: '',
     totalFeed: '',
+    totalFeed510: '',
+    totalFeed511: '',
+    farmStock510: '',
+    farmStock511: '',
     farmStock: '',
-    disease: '',
-    medicine: '',
+    disease: 'No',
+    medicine: 'No',
   });
+  const [msgData, setMsgData] = useState('');
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const calculateFCR = (
+    totalFeed: number,
+    avgWeight: number,
+    totalDOCInput: number
+  ): number => {
+    // Calculate FCR using the formula
+    // FCR = Total Feed / (Total Weight Gain)
+    const fcr = (totalDOCInput * (avgWeight / 1000)) / (totalFeed * 50);
+    const currentDate = new Date();
+
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const year = String(currentDate.getFullYear()).slice(2);
+    const formattedDate = `${day}.${month}.${year}`;
+    const weight = data.find(
+      (item) => item.age == Number(formData.age)
+    )?.weight;
+    const msg = `\n
+    Date: ${formattedDate}\n
+    Farmer: ${formData.farmerName}\n
+    Location: ${formData.location}\n
+    Total DOC Input: ${formData.totalDOCInput}\n
+    Strain: ${formData.strain}\n
+    Age: ${formData.age} days \n\n
+    Today Mortality:${formData.todayMortality}\n
+    Total Mortality: ${formData.totalMortality}\n
+    Avg. Wt: ${formData.avgWeight} gm \n
+    Std. Wt: ${weight} gm\n
+    FCR: ${fcr}\n
+    Std FCR: ${data.find((item) => item.age == Number(formData.age))?.fcr}\n
+    \n
+    Feed: ${totalFeed} Bags Running\n
+    510: ${formData.totalFeed510}\n
+    511: ${formData.totalFeed511}\n\n
+    Farm Stock: \n
+    510: ${formData.farmStock510} Bags\n
+    511: ${formData.farmStock511} Bags\n
+    \n
+    Disease: ${formData.disease}\n
+    Medicine: ${formData.medicine}
+    `;
+    setMsgData(msg);
+    return fcr;
+  };
+  const handleCopy = async () => {
+    await copy(msgData);
+    alert('Message copied to clipboard!');
   };
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     // Calculate FCR
     const fcr = calculateFCR(
-      Number(formData.totalFeed),
-      Number(formData.avgWeight)
+      Number(formData.totalFeed510) + Number(formData.totalFeed511) + 1,
+      Number(formData.avgWeight),
+      Number(formData.totalDOCInput) - Number(formData.totalMortality)
     );
-    alert(`FCR: ${fcr}`);
   };
   return (
     <main className="bg-white flex min-h-screen items-center justify-center p-12 flex-col">
       <div className="flex flex-col items-center mb-12">
-        <h1 className="bg-black text-black font-bold text-lg px-4 py-2 mb-4">
+        <h1 className="bg-black text-black font-bold text-2xl italic px-4 py-2 mb-4">
           Daily FCR Calculator
         </h1>
         <div>
-          <div className="flex flex-col mb-4">
+          <div className="flex flex-row mb-4 gap-x-4">
             <form
               onSubmit={handleSubmit}
-              className="flex flex-col items-center text-black"
+              className="flex flex-col items-end text-black gap-y-2"
             >
-              <label htmlFor="farmerName">Farmer Name</label>
-              <input
-                type="text"
-                id="farmerName"
-                name="farmerName"
-                value={formData.farmerName}
-                onChange={handleChange}
-                className="border border-black"
-              />
-
-              <label htmlFor="dlCode">DL Code</label>
-              <input
-                type="text"
-                id="dlCode"
-                name="dlCode"
-                value={formData.dlCode}
-                onChange={handleChange}
-                className="border border-black"
-              />
-
-              <label htmlFor="location">Location</label>
-              <input
-                type="text"
-                id="location"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                className="border border-black"
-              />
-
-              <label htmlFor="totalDOCInput">Total DOC Input</label>
-              <input
-                type="text"
-                id="totalDOCInput"
-                name="totalDOCInput"
-                value={formData.totalDOCInput}
-                onChange={handleChange}
-                className="border border-black"
-              />
-
-              <label htmlFor="strain">Strain</label>
-              <input
-                type="text"
-                id="strain"
-                name="strain"
-                value={formData.strain}
-                onChange={handleChange}
-                className="border border-black"
-              />
-
-              <label htmlFor="age">Age (in days)</label>
-              <input
-                type="text"
-                id="age"
-                name="age"
-                value={formData.age}
-                onChange={handleChange}
-                className="border border-black"
-              />
-
-              <label htmlFor="todayMortality">Today Mortality</label>
-              <input
-                type="text"
-                id="todayMortality"
-                name="todayMortality"
-                value={formData.todayMortality}
-                onChange={handleChange}
-                className="border border-black"
-              />
-
-              <label htmlFor="totalMortality">Total Mortality</label>
-              <input
-                type="text"
-                id="totalMortality"
-                name="totalMortality"
-                value={formData.totalMortality}
-                onChange={handleChange}
-                className="border border-black"
-              />
-
-              <label htmlFor="avgWeight">Avg. Weight (in gm)</label>
-              <input
-                type="text"
-                id="avgWeight"
-                name="avgWeight"
-                value={formData.avgWeight}
-                onChange={handleChange}
-                className="border border-black"
-              />
-
-              <label htmlFor="totalFeed">Total Feed</label>
-              <input
-                type="text"
-                id="totalFeed"
-                name="totalFeed"
-                value={formData.totalFeed}
-                onChange={handleChange}
-                className="border border-black"
-              />
-
-              <label htmlFor="farmStock">Farm Stock</label>
-              <input
-                type="text"
-                id="farmStock"
-                name="farmStock"
-                value={formData.farmStock}
-                onChange={handleChange}
-                className="border border-black"
-              />
-
-              <label htmlFor="disease">Disease</label>
-              <input
-                type="text"
-                id="disease"
-                name="disease"
-                value={formData.disease}
-                onChange={handleChange}
-                className="border border-black"
-              />
-
-              <label htmlFor="medicine">Medicine</label>
-              <input
-                type="text"
-                id="medicine"
-                name="medicine"
-                value={formData.medicine}
-                onChange={handleChange}
-                className="border border-black"
-              />
-
+              <div className="flex flex-row justify-center items-center gap-x-4">
+                <label className="font-bold text-lg">Farmer Name</label>
+                <input
+                  type="text"
+                  id="farmerName"
+                  name="farmerName"
+                  value={formData.farmerName}
+                  onChange={handleChange}
+                  className="border border-black"
+                />
+              </div>
+              <div className="flex flex-row justify-center items-center gap-x-4">
+                <label className="font-bold text-lg">Location</label>
+                <input
+                  type="text"
+                  id="location"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                  className="border border-black"
+                />
+              </div>
+              <div className="flex flex-row justify-center items-center gap-x-4">
+                <label className="font-bold text-lg">Total DOC Input</label>
+                <input
+                  type="number"
+                  id="totalDOCInput"
+                  name="totalDOCInput"
+                  value={formData.totalDOCInput}
+                  onChange={handleChange}
+                  className="border border-black"
+                />
+              </div>
+              <div className="flex flex-row justify-center items-center gap-x-4">
+                <label className="font-bold text-lg">Strain</label>
+                <input
+                  type="text"
+                  id="strain"
+                  name="strain"
+                  value={formData.strain}
+                  onChange={handleChange}
+                  className="border border-black"
+                />
+              </div>
+              <div className="flex flex-row justify-center items-center gap-x-4">
+                <label className="font-bold text-lg">Age (in days)</label>
+                <input
+                  type="number"
+                  id="age"
+                  name="age"
+                  value={formData.age}
+                  onChange={handleChange}
+                  className="border border-black"
+                />
+              </div>
+              <div className="flex flex-row justify-center items-center gap-x-4">
+                <label className="font-bold text-lg">Today Mortality</label>
+                <input
+                  type="number"
+                  id="todayMortality"
+                  name="todayMortality"
+                  value={formData.todayMortality}
+                  onChange={handleChange}
+                  className="border border-black"
+                />
+              </div>
+              <div className="flex flex-row justify-center items-center gap-x-4">
+                <label className="font-bold text-lg">Total Mortality</label>
+                <input
+                  type="number"
+                  id="totalMortality"
+                  name="totalMortality"
+                  value={formData.totalMortality}
+                  onChange={handleChange}
+                  className="border border-black"
+                />
+              </div>
+              <div className="flex flex-row justify-center items-center gap-x-4">
+                <label className="font-bold text-lg">Avg. Weight (in gm)</label>
+                <input
+                  type="number"
+                  id="avgWeight"
+                  name="avgWeight"
+                  value={formData.avgWeight}
+                  onChange={handleChange}
+                  className="border border-black"
+                />
+              </div>{' '}
+              <label className="w-full flex pl-[15%] font-bold text-lg">
+                Total Feed
+              </label>
+              <div className="flex flex-col justify-center items-center gap-y-2 ">
+                <div className="flex flex-row justify-center items-center gap-x-4">
+                  <label>510</label>
+                  <input
+                    type="number"
+                    id="totalFeed510"
+                    name="totalFeed510"
+                    value={formData.totalFeed510}
+                    onChange={handleChange}
+                    className="border border-black"
+                  />
+                </div>
+                <div className="flex flex-row justify-center items-center gap-x-4">
+                  <label>511</label>
+                  <input
+                    type="number"
+                    id="totalFeed511"
+                    name="totalFeed511"
+                    value={formData.totalFeed511}
+                    onChange={handleChange}
+                    className="border border-black"
+                  />
+                </div>
+              </div>
+              <label className="w-full flex pl-[15%] font-bold text-lg">
+                Farm Stock
+              </label>
+              <div className="flex flex-row justify-center items-center gap-x-4">
+                <div className="flex flex-col justify-center items-center gap-y-2">
+                  <div className="flex flex-row justify-center items-center gap-x-4">
+                    <label>510</label>
+                    <input
+                      type="number"
+                      id="farmStock510"
+                      name="farmStock510"
+                      value={formData.farmStock510}
+                      onChange={handleChange}
+                      className="border border-black"
+                    />
+                  </div>
+                  <div className="flex flex-row justify-center items-center gap-x-4">
+                    <label>511</label>
+                    <input
+                      type="number"
+                      id="farmStock511"
+                      name="farmStock511"
+                      value={formData.farmStock511}
+                      onChange={handleChange}
+                      className="border border-black"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-row justify-center items-center gap-x-4">
+                <label className="font-bold text-lg">Disease</label>
+                <input
+                  type="text"
+                  id="disease"
+                  name="disease"
+                  value={formData.disease}
+                  onChange={handleChange}
+                  className="border border-black"
+                />
+              </div>
+              <div className="flex flex-row justify-center items-center gap-x-4">
+                <label className="font-bold text-lg">Medicine</label>
+                <input
+                  type="text"
+                  id="medicine"
+                  name="medicine"
+                  value={formData.medicine}
+                  onChange={handleChange}
+                  className="border border-black"
+                />
+              </div>
               <button
                 type="submit"
                 className="bg-blue-500 font-bold px-4 py-2 mt-4 rounded border border-black text-black"
               >
                 Calculate FCR
               </button>
-            </form>
+            </form>{' '}
+            <div className="text-black whitespace-break-spaces leading-[.75] border border-black p-4">
+              {msgData}
+              <button
+                onClick={handleCopy}
+                className="bg-blue-500 text-black font-semibold  px-4 py-2 mt-6 border border-black rounded"
+              >
+                Copy Message
+              </button>
+            </div>
           </div>
         </div>
       </div>

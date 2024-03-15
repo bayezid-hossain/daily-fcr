@@ -4,11 +4,11 @@ const StandardTable = () => {
   return (
     <div>
       {' '}
-      <div className="flex-col mb-12 text-center">
+      <div className="flex-col mb-12 text-center justify-start">
         <h1 className="bg-black text-black font-bold text-lg px-4 py-2 mb-4 mr-8 lg:mr-0">
           Standard Data
         </h1>
-        <div className="flex flex-row items-center justify-center lg:flex-col">
+        <div className="flex flex-row items-start justify-center lg:flex-col">
           <table className="border-collapse border border-gray-800 text-sm mr-8 lg:mt-4 lg:mr-0">
             <thead className="text-black">
               <tr className="text-black">
