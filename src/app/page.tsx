@@ -92,8 +92,8 @@ export default function Home() {
     Total DOC Input: ${formData.totalDOCInput}\n
     Strain: ${formData.strain}\n
     Age: ${formData.age} days \n\n
-    Today Mortality:${formData.todayMortality}\n
-    Total Mortality: ${formData.totalMortality}\n
+    Today Mortality:${formData.todayMortality} pcs\n
+    Total Mortality: ${formData.totalMortality} pcs\n
     Avg. Wt: ${formData.avgWeight} gm \n
     Std. Wt: ${weight} gm\n
     FCR: ${fcr}\n
