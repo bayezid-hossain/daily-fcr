@@ -130,12 +130,12 @@ export default function Home() {
           Daily FCR Calculator
         </h1>
         <div>
-          <div className="flex flex-row mb-4 gap-x-4">
+          <div className="flex flex-row mb-4 gap-x-4 lg:flex-col lg:gap-y-4">
             <form
               onSubmit={handleSubmit}
               className="flex flex-col items-end text-black gap-y-2"
             >
-              <div className="flex flex-row justify-center items-center gap-x-4">
+              <div className="flex flex-row justify-between items-center gap-x-4 w-full">
                 <label className="font-bold text-lg">Farmer Name</label>
                 <input
                   type="text"
@@ -143,10 +143,10 @@ export default function Home() {
                   name="farmerName"
                   value={formData.farmerName}
                   onChange={handleChange}
-                  className="border border-black"
+                  className="border border-black px-1"
                 />
-              </div>
-              <div className="flex flex-row justify-center items-center gap-x-4">
+              </div>{' '}
+              <div className="flex flex-row justify-between items-center gap-x-4 w-full">
                 <label className="font-bold text-lg">Location</label>
                 <input
                   type="text"
@@ -154,10 +154,10 @@ export default function Home() {
                   name="location"
                   value={formData.location}
                   onChange={handleChange}
-                  className="border border-black"
+                  className="border border-black px-1"
                 />
-              </div>
-              <div className="flex flex-row justify-center items-center gap-x-4">
+              </div>{' '}
+              <div className="flex flex-row justify-between items-center gap-x-4 w-full">
                 <label className="font-bold text-lg">Total DOC Input</label>
                 <input
                   type="number"
@@ -165,10 +165,10 @@ export default function Home() {
                   name="totalDOCInput"
                   value={formData.totalDOCInput}
                   onChange={handleChange}
-                  className="border border-black"
+                  className="border border-black px-1"
                 />
               </div>
-              <div className="flex flex-row justify-center items-center gap-x-4">
+              <div className="flex flex-row justify-between items-center gap-x-4 w-full">
                 <label className="font-bold text-lg">Strain</label>
                 <input
                   type="text"
@@ -176,10 +176,10 @@ export default function Home() {
                   name="strain"
                   value={formData.strain}
                   onChange={handleChange}
-                  className="border border-black"
+                  className="border border-black px-1"
                 />
               </div>
-              <div className="flex flex-row justify-center items-center gap-x-4">
+              <div className="flex flex-row justify-between items-center gap-x-4 w-full">
                 <label className="font-bold text-lg">Age (in days)</label>
                 <input
                   type="number"
@@ -187,10 +187,10 @@ export default function Home() {
                   name="age"
                   value={formData.age}
                   onChange={handleChange}
-                  className="border border-black"
+                  className="border border-black px-1"
                 />
               </div>
-              <div className="flex flex-row justify-center items-center gap-x-4">
+              <div className="flex flex-row justify-between items-center gap-x-4 w-full">
                 <label className="font-bold text-lg">Today Mortality</label>
                 <input
                   type="number"
@@ -198,10 +198,10 @@ export default function Home() {
                   name="todayMortality"
                   value={formData.todayMortality}
                   onChange={handleChange}
-                  className="border border-black"
+                  className="border border-black px-1"
                 />
               </div>
-              <div className="flex flex-row justify-center items-center gap-x-4">
+              <div className="flex flex-row justify-between items-center gap-x-4 w-full">
                 <label className="font-bold text-lg">Total Mortality</label>
                 <input
                   type="number"
@@ -209,10 +209,10 @@ export default function Home() {
                   name="totalMortality"
                   value={formData.totalMortality}
                   onChange={handleChange}
-                  className="border border-black"
+                  className="border border-black px-1"
                 />
               </div>
-              <div className="flex flex-row justify-center items-center gap-x-4">
+              <div className="flex flex-row justify-between items-center gap-x-4 w-full">
                 <label className="font-bold text-lg">Avg. Weight (in gm)</label>
                 <input
                   type="number"
@@ -220,42 +220,44 @@ export default function Home() {
                   name="avgWeight"
                   value={formData.avgWeight}
                   onChange={handleChange}
-                  className="border border-black"
+                  className="border border-black px-1"
                 />
               </div>{' '}
-              <label className="w-full flex pl-[15%] font-bold text-lg">
-                Total Feed
-              </label>
-              <div className="flex flex-col justify-center items-center gap-y-2 ">
-                <div className="flex flex-row justify-center items-center gap-x-4">
-                  <label>510</label>
-                  <input
-                    type="number"
-                    id="totalFeed510"
-                    name="totalFeed510"
-                    value={formData.totalFeed510}
-                    onChange={handleChange}
-                    className="border border-black"
-                  />
-                </div>
-                <div className="flex flex-row justify-center items-center gap-x-4">
-                  <label>511</label>
-                  <input
-                    type="number"
-                    id="totalFeed511"
-                    name="totalFeed511"
-                    value={formData.totalFeed511}
-                    onChange={handleChange}
-                    className="border border-black"
-                  />
+              <div className="flex flex-row justify-center items-center gap-x-4 my-4 w-full">
+                <label className="w-full flex font-bold text-lg">
+                  Total Feed
+                </label>
+                <div className="flex flex-col justify-center items-center gap-y-2">
+                  <div className="flex flex-row justify-between items-center gap-x-4 w-full">
+                    <label>510</label>
+                    <input
+                      type="number"
+                      id="totalFeed510"
+                      name="totalFeed510"
+                      value={formData.totalFeed510}
+                      onChange={handleChange}
+                      className="border border-black px-1"
+                    />
+                  </div>
+                  <div className="flex flex-row justify-between items-center gap-x-4 w-full">
+                    <label>511</label>
+                    <input
+                      type="number"
+                      id="totalFeed511"
+                      name="totalFeed511"
+                      value={formData.totalFeed511}
+                      onChange={handleChange}
+                      className="border border-black px-1"
+                    />
+                  </div>
                 </div>
               </div>
-              <label className="w-full flex pl-[15%] font-bold text-lg">
-                Farm Stock
-              </label>
-              <div className="flex flex-row justify-center items-center gap-x-4">
+              <div className="flex flex-row justify-normal items-center gap-x-4 my-4 w-full">
+                <label className="w-full flex font-bold text-lg">
+                  Farm Stock
+                </label>
                 <div className="flex flex-col justify-center items-center gap-y-2">
-                  <div className="flex flex-row justify-center items-center gap-x-4">
+                  <div className="flex flex-row justify-between items-center gap-x-4 w-full">
                     <label>510</label>
                     <input
                       type="number"
@@ -263,10 +265,10 @@ export default function Home() {
                       name="farmStock510"
                       value={formData.farmStock510}
                       onChange={handleChange}
-                      className="border border-black"
+                      className="border border-black px-1"
                     />
                   </div>
-                  <div className="flex flex-row justify-center items-center gap-x-4">
+                  <div className="flex flex-row justify-between items-center gap-x-4 w-full">
                     <label>511</label>
                     <input
                       type="number"
@@ -274,12 +276,12 @@ export default function Home() {
                       name="farmStock511"
                       value={formData.farmStock511}
                       onChange={handleChange}
-                      className="border border-black"
+                      className="border border-black px-1"
                     />
                   </div>
                 </div>
               </div>
-              <div className="flex flex-row justify-center items-center gap-x-4">
+              <div className="flex flex-row justify-between items-center gap-x-4 w-full">
                 <label className="font-bold text-lg">Disease</label>
                 <input
                   type="text"
@@ -287,10 +289,10 @@ export default function Home() {
                   name="disease"
                   value={formData.disease}
                   onChange={handleChange}
-                  className="border border-black"
+                  className="border border-black px-1"
                 />
               </div>
-              <div className="flex flex-row justify-center items-center gap-x-4">
+              <div className="flex flex-row justify-between items-center gap-x-4 w-full">
                 <label className="font-bold text-lg">Medicine</label>
                 <input
                   type="text"
@@ -298,7 +300,7 @@ export default function Home() {
                   name="medicine"
                   value={formData.medicine}
                   onChange={handleChange}
-                  className="border border-black"
+                  className="border border-black px-1"
                 />
               </div>
               <button
@@ -308,11 +310,11 @@ export default function Home() {
                 Calculate FCR
               </button>
             </form>{' '}
-            <div className="text-black whitespace-break-spaces leading-[.75] border border-black p-4">
+            <div className="text-black whitespace-break-spaces leading-[.75] border border-black p-4 justify-center items-center">
               {msgData}
               <button
                 onClick={handleCopy}
-                className="bg-blue-500 text-black font-semibold  px-4 py-2 mt-6 border border-black rounded"
+                className="bg-blue-500 text-black font-semibold  px-4 py-2 mt-6 border border-black rounded w-full"
               >
                 Copy Message
               </button>
