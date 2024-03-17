@@ -31,8 +31,7 @@ async function loader() {
   // Fetch data from external API
   try {
     const response = await axios.post(`${process.env.DOMAIN}/api/data/dates`, {
-      withCredentials: true,
-      headers: { token: cookies().get('token')?.value },
+      token: cookies().get('token')?.value,
     });
     const data: Date[] = response.data.data;
     // console.log(response.data);

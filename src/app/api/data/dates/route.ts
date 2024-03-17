@@ -5,8 +5,8 @@ import { NextRequest, NextResponse } from 'next/server';
 connect();
 export async function POST(request: NextRequest) {
   try {
-    const token = request.headers.get('token') || '';
-
+    const reqBody = await request.json();
+    const { token } = reqBody;
     const verifiedToken =
       token &&
       (await verifyAuth(token).catch((err: any) => {
