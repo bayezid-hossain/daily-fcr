@@ -1,7 +1,6 @@
-const accountSID = 'AC954c87c16bf8b0aaa79ec3b867cc3457';
-const accountAuth = 'f3f18e72649adb6936ac37a74c40539c';
-
-// ** TWILIO **//
+// const accountSID =
+// const accountAuth =
+// // ** TWILIO **//
 
 //as trial account the accountAuth changes frequently, don't get triggered
 // if you don't recieve sms, i've sent the generated otp within the response
