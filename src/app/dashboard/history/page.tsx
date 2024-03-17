@@ -11,9 +11,10 @@ import toast from 'react-hot-toast';
 interface Date {
   date: string;
 }
-export default async function LoginPage() {
+export default async function HistoryPage() {
   const promise = loader();
 
+  const token = cookies().get('token')?.value || '';
   return (
     <div className="flex flex-col bg-white w-full  h-screen" key={uuid()}>
       <Navbar isUserApproved={true} />
@@ -31,13 +32,21 @@ export default async function LoginPage() {
 async function loader() {
   // Fetch data from external API
   try {
-    console.log('cookie' + cookies().get('token')?.value);
-    toast.success(cookies().get('token')?.value || 'No token found');
-    const response = await axios.get(`${process.env.DOMAIN}/api/data/dates`, {
-      withCredentials: true,
-      headers: { token: cookies().get('token')?.value },
+    const token = cookies().get('token')?.value;
+
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    if (token) {
+      headers.append('token', token);
+    }
+
+    const response = await fetch(`${process.env.DOMAIN}/api/data/dates`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: headers,
     });
-    const data: Date[] = response.data.data;
+    const json = await response.json();
+    const data: Date[] = json.data;
     // console.log(response.data);
 
     return { props: { data } };

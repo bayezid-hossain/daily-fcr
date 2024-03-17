@@ -3,7 +3,6 @@ import { verifyAuth } from '@/helpers/auth';
 import Entry from '@/models/entryModel';
 import Date from '@/models/dateModel';
 import { NextRequest, NextResponse } from 'next/server';
-import toast from 'react-hot-toast';
 connect();
 
 export async function POST(request: NextRequest) {
