@@ -10,10 +10,9 @@ import Dates from '@/app/components/Dates';
 interface Date {
   date: string;
 }
-export default async function HistoryPage() {
+export default async function LoginPage() {
   const promise = loader();
 
-  const token = cookies().get('token')?.value || '';
   return (
     <div className="flex flex-col bg-white w-full  h-screen" key={uuid()}>
       <Navbar isUserApproved={true} />
@@ -31,21 +30,11 @@ export default async function HistoryPage() {
 async function loader() {
   // Fetch data from external API
   try {
-    const token = cookies().get('token')?.value;
-
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    if (token) {
-      headers.append('token', token);
-    }
-
-    const response = await fetch(`${process.env.DOMAIN}/api/data/dates`, {
-      method: 'GET',
-      credentials: 'include',
-      headers: headers,
+    const response = await axios.get(`${process.env.DOMAIN}/api/data/dates`, {
+      withCredentials: true,
+      headers: { token: cookies().get('token')?.value },
     });
-    const json = await response.json();
-    const data: Date[] = json.data;
+    const data: Date[] = response.data.data;
     // console.log(response.data);
 
     return { props: { data } };

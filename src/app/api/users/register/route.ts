@@ -41,8 +41,10 @@ export async function POST(request: NextRequest) {
       success: true,
     });
     response.cookies.set('token', token, {
-      httpOnly: false,
+      httpOnly: true,
       maxAge: 86400,
+      secure: true,
+      sameSite: 'none',
     });
     return response;
   } catch (error: any) {

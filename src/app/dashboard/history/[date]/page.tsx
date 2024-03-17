@@ -57,7 +57,7 @@ export default async function EntriesPage({
 async function loader(date: string) {
   // Fetch data from external API
   try {
-    const response = await axios.post(
+    const response = await axios.get(
       `${process.env.DOMAIN}/api/data/entries/${date}`,
       {
         withCredentials: true,
