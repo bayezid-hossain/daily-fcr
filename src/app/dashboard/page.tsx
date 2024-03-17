@@ -32,6 +32,14 @@ export default function Home() {
   const [msgData, setMsgData] = useState('');
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
+    if (
+      name === 'age' &&
+      (Number(value) < 1 || Number(value) > 32) &&
+      value != ''
+    ) {
+      return; // Do not update state if value is out of range
+    }
+
     setFormData({ ...formData, [name]: value });
   };
 
@@ -107,6 +115,10 @@ export default function Home() {
   };
   const handleCopy = async () => {
     let dataToCopy = msgData;
+    if (msgData == '') {
+      toast.error('Nothing to copy');
+      return;
+    }
     let stringWithoutConsecutiveNewlines = dataToCopy.replace(/\n(?!\n)/g, '');
     let stringWithoutSpaces = stringWithoutConsecutiveNewlines
       .split('\n')
@@ -130,14 +142,14 @@ export default function Home() {
     <main className="bg-white flex min-h-screen items-center justify-center  flex-col">
       <div className="flex flex-col items-center mb-12 w-full">
         <Navbar isUserApproved={true} />
-        <h1 className="bg-black text-black font-bold text-2xl italic px-4 py-2 m-4">
+        <h3 className="bg-black text-black font-bold text-3xl italic px-4 py-2 m-4 mt-8 z-[1] shadow-lg animate-animate-blink">
           Daily FCR Calculator
-        </h1>
-        <div className="w-full rounded-lg shadow-lg p-6 m-4 mt-8 bg-white transition duration-300 transform hover:scale-110 text-black justify-start text-start ml-8 pl-10">
+        </h3>
+        <div className="w-full rounded-lg shadow-lg p-6 m-4 mt-8 bg-white transition duration-300 transform text-black justify-start text-start ml-8 pl-10">
           <div className="flex flex-row justify-around w-full mb-4 gap-x-4 lg:flex-col lg:gap-y-4">
             <form
               onSubmit={handleSubmit}
-              className="flex flex-col items-center text-black gap-y-2 px-6 rounded-lg shadow-2xl p-6 m-4 mt-8 bg-white transition duration-300 transform hover:scale-110  justify-start text-start ml-8 pl-10"
+              className="flex flex-col items-center text-black gap-y-2 px-6 rounded-lg shadow-2xl p-6 m-4 mt-8 bg-white transition duration-300 transform hover:scale-105  justify-start text-start ml-8 pl-10"
             >
               <label htmlFor="Farmer Name" className="blue-border-label">
                 <input
@@ -174,6 +186,7 @@ export default function Home() {
                   name="totalDOCInput"
                   value={formData.totalDOCInput}
                   onChange={handleChange}
+                  required
                   placeholder="Total DOC Input"
                   className="peer text-input"
                 />
@@ -185,6 +198,7 @@ export default function Home() {
                   id="strain"
                   name="strain"
                   value={formData.strain}
+                  required
                   onChange={handleChange}
                   className="peer text-input"
                   placeholder="Strain"
@@ -198,6 +212,7 @@ export default function Home() {
                   id="age"
                   name="age"
                   value={formData.age}
+                  required
                   onChange={handleChange}
                   className="peer text-input"
                   placeholder="Age"
@@ -213,6 +228,7 @@ export default function Home() {
                   placeholder="Today Mortality"
                   value={formData.todayMortality}
                   onChange={handleChange}
+                  required
                   className="peer text-input"
                 />
                 <span className="top-moving-span">Today Mortality</span>
@@ -223,6 +239,7 @@ export default function Home() {
                   type="number"
                   id="totalMortality"
                   name="totalMortality"
+                  required
                   value={formData.totalMortality}
                   onChange={handleChange}
                   placeholder="totalMortality"
@@ -235,6 +252,7 @@ export default function Home() {
                   type="number"
                   id="avgWeight"
                   name="avgWeight"
+                  required
                   value={formData.avgWeight}
                   onChange={handleChange}
                   className="peer text-input"
@@ -249,6 +267,7 @@ export default function Home() {
                   type="number"
                   id="totalFeed510"
                   name="totalFeed510"
+                  required
                   value={formData.totalFeed510}
                   className="peer text-input"
                   placeholder="510"
@@ -260,6 +279,7 @@ export default function Home() {
               <label className="blue-border-label">
                 <input
                   type="number"
+                  required
                   id="totalFeed511"
                   name="totalFeed511"
                   value={formData.totalFeed511}
@@ -276,6 +296,7 @@ export default function Home() {
                   type="number"
                   id="farmStock510"
                   name="farmStock510"
+                  required
                   value={formData.farmStock510}
                   onChange={handleChange}
                   placeholder="510"
@@ -289,6 +310,7 @@ export default function Home() {
                   type="number"
                   id="farmStock511"
                   name="farmStock511"
+                  required
                   value={formData.farmStock511}
                   onChange={handleChange}
                   className="peer text-input"
@@ -301,6 +323,7 @@ export default function Home() {
                   type="text"
                   id="disease"
                   name="disease"
+                  required
                   value={formData.disease}
                   onChange={handleChange}
                   className="peer text-input"
@@ -312,6 +335,7 @@ export default function Home() {
                   type="text"
                   id="medicine"
                   name="medicine"
+                  required
                   value={formData.medicine}
                   onChange={handleChange}
                   className="peer text-input"
@@ -320,22 +344,22 @@ export default function Home() {
               </label>
               <button
                 type="submit"
-                className="bg-blue-500 font-bold px-4 py-2 mt-4 rounded border border-black text-black"
+                className="bg-[skyblue]/50 text-black font-semibold  px-4 py-4 mt-6 shadow-xl border-black rounded-full w-full hover:bg-[green]/20"
               >
                 Calculate FCR
               </button>
             </form>{' '}
-            <div className="text-black whitespace-break-spaces leading-[.75] border border-black p-4 justify-center items-center rounded-lg shadow-2xl m-4 mt-8 bg-white transition duration-300 transform hover:scale-110 text-start ml-8 pl-10">
+            <div className="text-black whitespace-break-spaces leading-[.75] p-4 justify-center items-center rounded-lg shadow-2xl m-4 mt-8 bg-white transition duration-300 transform hover:scale-105 text-start ml-8 pl-10">
               {msgData}
               <button
                 onClick={handleCopy}
-                className="bg-blue-500 text-black font-semibold  px-4 py-2 mt-6 border border-black rounded w-full"
+                className="bg-[skyblue]/50 text-black font-semibold  px-4 py-4 mt-6 shadow-xl border-black rounded-full w-full hover:bg-[green]/20"
               >
                 Copy Message
               </button>
               <button
                 onClick={handleSave}
-                className="bg-blue-500 text-black font-semibold  px-4 py-2 mt-6 border border-black rounded w-full"
+                className="bg-[skyblue]/50 text-black font-semibold  px-4 py-4 mt-6 shadow-xl border-black rounded-full w-full hover:bg-[green]/20"
               >
                 Save Data
               </button>

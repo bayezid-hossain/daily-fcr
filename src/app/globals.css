@@ -26,10 +26,5 @@
 }
 body {
   color: rgb(var(--blue)); /* Use the RGB value stored in the custom property */
-  background: linear-gradient(
-    to top,
-    transparent,
-    rgb(var(--blue)),
-    rgb(var(--foreground-rgb))
-  );
+  background: white;
 }

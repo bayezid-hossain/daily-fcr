@@ -11,6 +11,7 @@ const config: Config = {
       animation: {
         'text-reveal':
           'text-reveal 5s cubic-bezier(0.77, 0, 0.175, 1) infinite',
+        'animate-blink': 'blink 3s infinite',
       },
       keyframes: {
         'text-reveal': {
@@ -22,6 +23,17 @@ const config: Config = {
           },
           '100%': {
             transform: 'translate(0, 100%)',
+          },
+        },
+        blink: {
+          '0%': {
+            opacity: '1',
+          },
+          '50%': {
+            opacity: '0',
+          },
+          '100%': {
+            opacity: '1',
           },
         },
       },

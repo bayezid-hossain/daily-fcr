@@ -25,7 +25,7 @@ const Navbar: React.FC<NavbarProps> = ({ isUserApproved }) => {
   };
 
   return (
-    <div className="flex items-center justify-between w-full h-[90px] bg-[green]/60">
+    <div className="flex items-center justify-between w-full h-[90px] bg-[green]/40">
       <div>
         {' '}
         <Image
