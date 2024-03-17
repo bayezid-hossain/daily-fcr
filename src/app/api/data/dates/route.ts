@@ -27,7 +27,12 @@ export async function POST(request: NextRequest) {
     return response;
   } catch (error: any) {
     return NextResponse.json(
-      { error: error.message, userId: userId, verifiedToken },
+      {
+        error: error.message,
+        userId: userId,
+        verifiedToken,
+        token: request.headers.get('token'),
+      },
       { status: 500 }
     );
   }
