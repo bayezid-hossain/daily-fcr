@@ -3,7 +3,7 @@ import { verifyAuth } from '@/helpers/auth';
 import Entry from '@/models/entryModel';
 import { NextRequest, NextResponse } from 'next/server';
 connect();
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
     const token = request.headers.get('token') || '';
     const date = request.url
