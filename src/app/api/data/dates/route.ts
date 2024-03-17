@@ -7,9 +7,9 @@ connect();
 export async function GET(request: NextRequest) {
   let userId;
   let verifiedToken;
-  let cookie = request.headers.get('Cookie');
+  let cookie = request.headers.get('Cookie')?.replaceAll('token=', '');
   try {
-    const token = cookie?.substring(cookie.lastIndexOf('token='));
+    const token = cookie;
     verifiedToken =
       token &&
       (await verifyAuth(token).catch((err: any) => {
