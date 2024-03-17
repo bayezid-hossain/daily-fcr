@@ -57,19 +57,16 @@ export default async function EntriesPage({
 async function loader(date: string) {
   // Fetch data from external API
   try {
-    const response = await axios.get(
-      `http://localhost:3000/api/data/entries/${date}`,
-      {
-        withCredentials: true,
-        headers: { token: cookies().get('token')?.value },
-      }
-    );
+    const response = await axios.get(`/api/data/entries/${date}`, {
+      withCredentials: true,
+      headers: { token: cookies().get('token')?.value },
+    });
     const data: Entry[] = response.data.data;
     // console.log(response.data);
 
     return { props: { data } };
   } catch (error: any) {
-    console.log(error.message);
+    console.log(error);
   }
 
   // Pass data to the page via props

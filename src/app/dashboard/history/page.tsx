@@ -30,7 +30,7 @@ export default async function LoginPage() {
 async function loader() {
   // Fetch data from external API
   try {
-    const response = await axios.get('http://localhost:3000/api/data/dates', {
+    const response = await axios.post('/api/data/dates', {
       withCredentials: true,
       headers: { token: cookies().get('token')?.value },
     });
