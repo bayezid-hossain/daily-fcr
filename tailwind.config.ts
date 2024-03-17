@@ -7,6 +7,25 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    extend: {
+      animation: {
+        'text-reveal':
+          'text-reveal 5s cubic-bezier(0.77, 0, 0.175, 1) infinite',
+      },
+      keyframes: {
+        'text-reveal': {
+          '0%': {
+            transform: 'translate(0, 100%)',
+          },
+          '50%': {
+            transform: 'translate(0, 0)',
+          },
+          '100%': {
+            transform: 'translate(0, 100%)',
+          },
+        },
+      },
+    },
     backgroundColor: {
       white: '#ffffff', // You can also use 'white' if you want to refer to it by name
     },

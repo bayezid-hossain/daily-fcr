@@ -3,31 +3,33 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 255, 255, 255;
+  --blue: 0, 0, 255;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.blue-button {
+  @apply bg-blue-500 text-white py-2 px-4 rounded font-semibold;
 }
-
+.blue-border-label {
+  @apply relative block rounded-md border border-blue-500 shadow-sm focus-within:border-green-600 focus-within:ring-1 focus-within:ring-green-600 mb-4;
+}
+.text-input {
+  @apply border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-2 mb-4;
+}
+.top-moving-span {
+  @apply pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white bg-blue-500 p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs peer-focus:font-semibold;
+}
+.bg-transparent {
+  background-color: 'transparent';
+}
+.bg-blue-500 {
+  background-color: blue/20;
+}
 body {
-  color: rgb(var(--foreground-rgb));
+  color: rgb(var(--blue)); /* Use the RGB value stored in the custom property */
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    to top,
+    transparent,
+    rgb(var(--blue)),
+    rgb(var(--foreground-rgb))
+  );
 }

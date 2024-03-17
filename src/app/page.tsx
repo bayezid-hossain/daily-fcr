@@ -119,7 +119,7 @@ export default function Home() {
       .split('\n')
       .map((line) => line.trim())
       .join('\n');
-    console.log(stringWithoutSpaces);
+    // console.log(stringWithoutSpaces);
     await copy(stringWithoutSpaces);
     alert('Message copied to clipboard!');
   };
