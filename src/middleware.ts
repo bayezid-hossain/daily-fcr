@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { verifyAuth } from './helpers/auth';
+import toast from 'react-hot-toast';
 
 export async function middleware(request: NextRequest) {
-  console.log('before token check');
+  toast.success(request.cookies.get('token')?.value || '');
   const token = request.cookies.get('token')?.value || '';
-  console.log('came here');
+  toast.success(token);
   const verifiedToken =
     token &&
     (await verifyAuth(token).catch((err: any) => {
