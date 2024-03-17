@@ -4,7 +4,7 @@ import { verifyAuth } from './helpers/auth';
 
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get('token')?.value || '';
-
+  console.log('came here');
   const verifiedToken =
     token &&
     (await verifyAuth(token).catch((err: any) => {
