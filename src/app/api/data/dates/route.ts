@@ -9,9 +9,7 @@ export async function GET(request: NextRequest) {
   let verifiedToken;
   let cookie = request.headers.get('Cookie');
   try {
-    const token =
-      request.headers.get('token') ||
-      cookie?.substring(cookie.lastIndexOf('token='));
+    const token = cookie?.substring(cookie.lastIndexOf('token='));
     verifiedToken =
       token &&
       (await verifyAuth(token).catch((err: any) => {
