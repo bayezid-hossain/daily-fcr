@@ -11,10 +11,9 @@ export async function middleware(request: NextRequest) {
       console.log(err);
     }));
   const path = request.nextUrl.pathname;
-
+  console.log(path);
   const isPublicPath = path === '/login' || path === '/registration';
-  if (verifiedToken && !verifiedToken.data?.isVerified) {
-  }
+  console.log(isPublicPath && verifiedToken && verifiedToken.data?.isVerified);
   if (isPublicPath && verifiedToken && verifiedToken.data?.isVerified) {
     return NextResponse.redirect(new URL('/dashboard', request.nextUrl));
   }
