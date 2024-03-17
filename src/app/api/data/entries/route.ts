@@ -14,6 +14,7 @@ export async function POST(request: NextRequest) {
       }));
 
     let userId = verifiedToken ? verifiedToken.data?.id : '';
+    console.log(userId);
     const entries = await Entry.find({ userId });
     console.log(entries);
     const response = NextResponse.json({
