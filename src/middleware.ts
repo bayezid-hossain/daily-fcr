@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server';
 import { verifyAuth } from './helpers/auth';
 
 export async function middleware(request: NextRequest) {
+  console.log('before token check');
   const token = request.cookies.get('token')?.value || '';
   console.log('came here');
   const verifiedToken =
