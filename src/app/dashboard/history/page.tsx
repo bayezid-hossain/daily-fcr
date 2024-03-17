@@ -7,12 +7,13 @@ import Loading from './loading';
 import Await from '@/app/components/Await';
 import { v4 as uuid } from 'uuid';
 import Dates from '@/app/components/Dates';
+import toast from 'react-hot-toast';
 interface Date {
   date: string;
 }
 export default async function LoginPage() {
   const promise = loader();
-
+  console.log(cookies().get('token')?.value);
   return (
     <div className="flex flex-col bg-white w-full  h-screen" key={uuid()}>
       <Navbar isUserApproved={true} />
