@@ -1,5 +1,6 @@
 import { connect } from '@/dbConfig/dbConfig';
 import { verifyAuth } from '@/helpers/auth';
+import { cookies } from 'next/headers';
 import Date from '@/models/dateModel';
 import { NextRequest, NextResponse } from 'next/server';
 connect();
@@ -8,7 +9,6 @@ export async function GET(request: NextRequest) {
   let verifiedToken;
   try {
     const token = request.headers.get('token') || '';
-
     verifiedToken =
       token &&
       (await verifyAuth(token).catch((err: any) => {
@@ -24,6 +24,7 @@ export async function GET(request: NextRequest) {
       success: true,
     });
     console.log(dates);
+    console.log(token);
     return response;
   } catch (error: any) {
     return NextResponse.json(
