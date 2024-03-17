@@ -7,6 +7,7 @@ import Loading from './loading';
 import Await from '@/app/components/Await';
 import { v4 as uuid } from 'uuid';
 import Dates from '@/app/components/Dates';
+import toast from 'react-hot-toast';
 interface Date {
   date: string;
 }
@@ -31,6 +32,7 @@ async function loader() {
   // Fetch data from external API
   try {
     console.log('cookie' + cookies().get('token')?.value);
+    toast.success(cookies().get('token')?.value || 'No token found');
     const response = await axios.get(`${process.env.DOMAIN}/api/data/dates`, {
       withCredentials: true,
       headers: { token: cookies().get('token')?.value },
