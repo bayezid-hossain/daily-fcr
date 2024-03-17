@@ -5,10 +5,11 @@ import { NextRequest, NextResponse } from 'next/server';
 connect();
 export async function POST(request: NextRequest) {
   let userId;
+  let verifiedToken;
   try {
     const token = request.headers.get('token') || '';
 
-    const verifiedToken =
+    verifiedToken =
       token &&
       (await verifyAuth(token).catch((err: any) => {
         console.log(err);
@@ -26,7 +27,7 @@ export async function POST(request: NextRequest) {
     return response;
   } catch (error: any) {
     return NextResponse.json(
-      { error: error.message, userId: userId },
+      { error: error.message, userId: userId, verifiedToken },
       { status: 500 }
     );
   }
