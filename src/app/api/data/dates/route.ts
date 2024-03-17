@@ -7,6 +7,7 @@ connect();
 export async function GET(request: NextRequest) {
   let userId;
   let verifiedToken;
+  let cookie = request.headers.get('Cookie');
   try {
     const token = request.headers.get('token') || '';
     verifiedToken =
@@ -31,6 +32,7 @@ export async function GET(request: NextRequest) {
       {
         error: error.message,
         userId: userId,
+        cookie,
         verifiedToken,
         token: request.headers.get('token'),
       },
