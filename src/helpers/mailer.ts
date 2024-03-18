@@ -4,15 +4,15 @@
 
 // export const sendEmail = async({email, emailType, userId}:any) => {
 //     try {
-//         // create a hased token
-//         const hashedToken = await bcryptjs.hash(userId.toString(), 10)
+//         // create a hased user_info_cookie
+//         const hasheduser_info_cookie = await bcryptjs.hash(userId.toString(), 10)
 
 //         if (emailType === "VERIFY") {
 //             await User.findByIdAndUpdate(userId,
-//                 {verifyToken: hashedToken, verifyTokenExpiry: Date.now() + 3600000})
+//                 {verifyuser_info_cookie: hasheduser_info_cookie, verifyuser_info_cookieExpiry: Date.now() + 3600000})
 //         } else if (emailType === "RESET"){
 //             await User.findByIdAndUpdate(userId,
-//                 {forgotPasswordToken: hashedToken, forgotPasswordTokenExpiry: Date.now() + 3600000})
+//                 {forgotPassworduser_info_cookie: hasheduser_info_cookie, forgotPassworduser_info_cookieExpiry: Date.now() + 3600000})
 //         }
 
 //         var transport = nodemailer.createTransport({
@@ -29,8 +29,8 @@
 //             from: 'hitesh@gmail.com',
 //             to: email,
 //             subject: emailType === "VERIFY" ? "Verify your email" : "Reset your password",
-//             html: `<p>Click <a href="${process.env.DOMAIN}/verifyemail?token=${hashedToken}">here</a> to ${emailType === "VERIFY" ? "verify your email" : "reset your password"}
-//             or copy and paste the link below in your browser. <br> ${process.env.DOMAIN}/verifyemail?token=${hashedToken}
+//             html: `<p>Click <a href="${process.env.DOMAIN}/verifyemail?user_info_cookie=${hasheduser_info_cookie}">here</a> to ${emailType === "VERIFY" ? "verify your email" : "reset your password"}
+//             or copy and paste the link below in your browser. <br> ${process.env.DOMAIN}/verifyemail?user_info_cookie=${hasheduser_info_cookie}
 //             </p>`
 //         }
 

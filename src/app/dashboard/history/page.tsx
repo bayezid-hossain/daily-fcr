@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-
+import { getCookie } from 'cookies-next';
 import React, { ChangeEvent, Suspense, useEffect } from 'react';
 import Navbar from '@/app/components/Navbar';
 import axios from 'axios';
@@ -13,7 +13,7 @@ interface Date {
 }
 export default async function LoginPage() {
   const promise = loader();
-  console.log(cookies().get('token')?.value);
+  console.log(cookies().get('user_info_cookie')?.value);
   return (
     <div className="flex flex-col bg-white w-full  h-screen" key={uuid()}>
       <Navbar isUserApproved={true} />
@@ -21,7 +21,12 @@ export default async function LoginPage() {
         <Await promise={promise}>
           {(result) => {
             const dates: Date[] = result?.props?.data || [];
-            return <Dates dates={dates} />;
+            return (
+              <div className="flex flex-col">
+                <p>{result?.props.cookie}</p>
+                <Dates dates={dates} />
+              </div>
+            );
           }}
         </Await>
       </Suspense>
@@ -30,6 +35,7 @@ export default async function LoginPage() {
 }
 async function loader() {
   // Fetch data from external API
+  const cok = getCookie('user_info_cookie', { cookies });
   try {
     const response = await axios.post(
       `${process.env.DOMAIN}/api/data/dates`,
@@ -38,12 +44,13 @@ async function loader() {
         headers: {
           Cookie: cookies().toString(),
         },
+        withCredentials: true,
       }
     );
     const data: Date[] = response.data.data;
     // console.log(response.data);
 
-    return { props: { data } };
+    return { props: { data, cookie: cok } };
   } catch (error: any) {
     console.log(error.message);
   }

@@ -13,15 +13,15 @@ export const getJwtSecretKey = () => {
   return secret;
 };
 export const verifyAuth = async (
-  token: string
+  user_info_cookie: string
 ): Promise<UserJwtPayload | undefined> => {
   try {
     const verified = await jwtVerify(
-      token,
+      user_info_cookie,
       new TextEncoder().encode(getJwtSecretKey())
     );
     return verified.payload as unknown as UserJwtPayload;
   } catch (error: any) {
-    throw new Error('Your token expired');
+    throw new Error('Your user_info_cookie expired');
   }
 };

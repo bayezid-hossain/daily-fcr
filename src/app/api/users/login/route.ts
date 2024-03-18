@@ -26,14 +26,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid Password' }, { status: 400 });
     }
     // console.log(user);
-    //create token data
-    const tokenData = {
+    //create user_info_cookie data
+    const user_info_cookieData = {
       id: user._id,
       mobile: user.mobile,
       isVerified: user.isVerified,
     };
-    //create token
-    const token = await new SignJWT({ data: tokenData })
+    //create user_info_cookie
+    const user_info_cookie = await new SignJWT({ data: user_info_cookieData })
       .setProtectedHeader({ alg: 'HS256' })
       .setJti(nanoid())
       .setIssuedAt()
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
       message: 'Login successful',
       success: true,
     });
-    response.cookies.set('token', token, {
+    response.cookies.set('user_info_cookie', user_info_cookie, {
       httpOnly: true,
       maxAge: 86400,
       secure: true,
