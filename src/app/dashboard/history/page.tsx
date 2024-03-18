@@ -50,7 +50,7 @@ async function loader() {
     const data: Date[] = response.data.data;
     // console.log(response.data);
 
-    return { props: { data, cookie: cookies().toString() } };
+    return { props: { data, cookie: 'haksdhfkjashdfuesfhakeuhfakshdfu' } };
   } catch (error: any) {
     console.log(error.message);
   }
