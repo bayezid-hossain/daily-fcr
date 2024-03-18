@@ -48,7 +48,6 @@ export async function POST(request: NextRequest) {
       maxAge: 86400,
       secure: true,
       sameSite: 'none',
-      domain: process.env.DOMAIN,
     });
     await user.save();
     return response;

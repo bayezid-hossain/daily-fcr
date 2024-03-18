@@ -45,7 +45,6 @@ export async function POST(request: NextRequest) {
       maxAge: 86400,
       secure: true,
       sameSite: 'none',
-      domain: process.env.DOMAIN,
     });
     return response;
   } catch (error: any) {
