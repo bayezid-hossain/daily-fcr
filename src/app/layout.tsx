@@ -1,6 +1,7 @@
 import { Toaster } from 'react-hot-toast';
 import './globals.css';
 import { Inter } from 'next/font/google';
+import { CookiesProvider } from 'next-client-cookies/server';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,9 +16,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <Toaster position="top-center" />
-      <body className={inter.className}>{children}</body>
-    </html>
+    <CookiesProvider>
+      <html lang="en">
+        <Toaster position="top-center" />
+        <body className={inter.className}>{children}</body>
+      </html>
+    </CookiesProvider>
   );
 }

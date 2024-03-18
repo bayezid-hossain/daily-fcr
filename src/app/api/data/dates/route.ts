@@ -3,11 +3,10 @@ import { verifyAuth } from '@/helpers/auth';
 import Date from '@/models/dateModel';
 import { NextRequest, NextResponse } from 'next/server';
 connect();
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
-    let token = request.headers.get('Cookie') || '';
-    token = token.replaceAll('token=', '');
-    console.log(token);
+    const token = request.headers.get('token') || '';
+
     const verifiedToken =
       token &&
       (await verifyAuth(token).catch((err: any) => {

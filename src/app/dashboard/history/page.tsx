@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import { getCookie } from 'cookies-next';
+import { getCookies } from 'next-client-cookies/server';
 import React, { ChangeEvent, Suspense, useEffect } from 'react';
 import Navbar from '@/app/components/Navbar';
 import axios from 'axios';
@@ -11,8 +11,10 @@ interface Date {
   date: string;
 }
 export default async function LoginPage() {
-  const promise = loader();
-  console.log(cookies().get('token')?.value);
+  const cookies = getCookies();
+  const token = cookies.get('token')?.toString();
+  const promise = loader(token || '');
+
   return (
     <div className="flex flex-col bg-white w-full  h-screen" key={uuid()}>
       <Navbar isUserApproved={true} />
@@ -22,9 +24,7 @@ export default async function LoginPage() {
             const dates: Date[] = result?.props?.data || [];
             return (
               <div className="flex flex-col">
-                <p>
-                  {result?.props.info == '' ? 'nothing' : result?.props.info}
-                </p>
+                <p>{token}</p>
                 <Dates dates={dates} />
               </div>
             );
@@ -34,24 +34,17 @@ export default async function LoginPage() {
     </div>
   );
 }
-async function loader() {
+async function loader(cookies: string) {
   // Fetch data from external API
-  const cok = getCookie('token', { cookies });
   try {
-    const response = await axios.post(
-      `${process.env.DOMAIN}/api/data/dates`,
-      null,
-      {
-        headers: {
-          Cookie: cookies().toString(),
-        },
-        withCredentials: true,
-      }
-    );
+    const response = await axios.get(`${process.env.DOMAIN}/api/data/dates`, {
+      withCredentials: true,
+      headers: { token: cookies },
+    });
     const data: Date[] = response.data.data;
     // console.log(response.data);
 
-    return { props: { data, info: cok ? cok : 'hello everyone' } };
+    return { props: { data } };
   } catch (error: any) {
     console.log(error.message);
   }
