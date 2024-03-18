@@ -23,7 +23,7 @@ export default async function LoginPage() {
             const dates: Date[] = result?.props?.data || [];
             return (
               <div className="flex flex-col">
-                <p>{result?.props.cookie}</p>
+                <p>{result?.props?.cookie || 'nothing'}</p>
                 <Dates dates={dates} />
               </div>
             );
