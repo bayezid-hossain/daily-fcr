@@ -3,9 +3,10 @@ import { verifyAuth } from '@/helpers/auth';
 import Date from '@/models/dateModel';
 import { NextRequest, NextResponse } from 'next/server';
 connect();
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-    const token = request.headers.get('token') || '';
+    const reqBody = await request.json();
+    const { token } = reqBody;
 
     const verifiedToken =
       token &&

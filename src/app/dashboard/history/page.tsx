@@ -17,10 +17,10 @@ export default async function LoginPage() {
   const token = cookies.get('token')?.toString();
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${process.env.DOMAIN}/api/data/dates`, {
-        withCredentials: true,
-        headers: { token },
-      });
+      const response = await axios.post(
+        `${process.env.DOMAIN}/api/data/dates`,
+        { token }
+      );
 
       dates = response.data.data;
     } catch (error: any) {
