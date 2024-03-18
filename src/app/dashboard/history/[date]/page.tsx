@@ -6,6 +6,7 @@ import Loading from './loading';
 import Await from '@/app/components/Await';
 import Entries from '@/app/components/Entries';
 import { v4 as uuid } from 'uuid';
+import { getCookies } from 'next-client-cookies/server';
 interface Entry {
   date: string;
   farmerName: string;
@@ -36,10 +37,10 @@ export default async function EntriesPage({
   params: { date: string };
 }) {
   const { date } = params;
-  console.log(params);
+  const cookies = getCookies();
+  const token = cookies.get('token')?.toString();
 
-  const promise = loader(date);
-  console.log(date);
+  const promise = loader(date, token || '');
   return (
     <div className="flex flex-col bg-white w-full  h-screen" key={uuid()}>
       <Navbar isUserApproved={true} />
@@ -54,15 +55,12 @@ export default async function EntriesPage({
     </div>
   );
 }
-async function loader(date: string) {
+async function loader(date: string, token: string) {
   // Fetch data from external API
   try {
     const response = await axios.post(
       `${process.env.DOMAIN}/api/data/entries/${date}`,
-      {
-        withCredentials: true,
-        headers: { token: cookies().get('token')?.value },
-      }
+      { token: token, date: date }
     );
     const data: Entry[] = response.data.data;
     // console.log(response.data);

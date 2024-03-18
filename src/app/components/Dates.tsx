@@ -25,9 +25,9 @@ const Dates: React.FC<DateProps> = ({ dates }) => {
           className="rounded-lg shadow-xl p-6 m-4 bg-white transition duration-300 transform hover:scale-110 text-black justify-start text-center h-[72px]"
           onClick={() => handleDateClick(date.date)}
         >
-          <p className="text-lg h-full">
-            <span className="font-bold">Date:</span> {date.date}
-          </p>
+          <button className="h-full">
+            <span className="font-bold text-lg">Date:</span> {date.date}
+          </button>
         </div>
       ))}
     </div>

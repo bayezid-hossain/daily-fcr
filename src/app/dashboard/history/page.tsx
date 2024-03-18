@@ -10,7 +10,6 @@ interface Date {
 }
 
 export default async function HistoryPage() {
-  let dates: Date[] = [];
   const cookies = getCookies();
   const token = cookies.get('token')?.toString();
   const response = await axios.post(`${process.env.DOMAIN}/api/data/dates`, {
@@ -23,8 +22,6 @@ export default async function HistoryPage() {
       <Navbar isUserApproved={true} />
 
       <div className="flex flex-col">
-        <p>{token}</p>
-
         <Dates dates={response.data?.data} />
       </div>
     </div>
