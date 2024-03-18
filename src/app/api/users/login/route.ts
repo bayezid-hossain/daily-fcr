@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { nanoid } from 'nanoid';
 import { SignJWT } from 'jose';
 import { getJwtSecretKey } from '@/helpers/auth';
-
+import bcrypt from 'bcryptjs';
 connect();
 
 export async function POST(request: NextRequest) {
@@ -22,9 +22,11 @@ export async function POST(request: NextRequest) {
     }
 
     //check if password is correct
-    if (user.password != password) {
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
       return NextResponse.json({ error: 'Invalid Password' }, { status: 400 });
     }
+
     // console.log(user);
     //create token data
     const tokenData = {

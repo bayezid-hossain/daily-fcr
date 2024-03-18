@@ -11,6 +11,7 @@
   "dependencies": {
     "@heroicons/react": "^2.1.1",
     "axios": "^1.6.7",
+    "bcryptjs": "^2.4.3",
     "clipboard-copy": "^4.0.1",
     "cookies-next": "^4.1.1",
     "jose": "^5.2.3",
@@ -25,6 +26,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
