@@ -2,8 +2,6 @@ import { getCookies } from 'next-client-cookies/server';
 import React, { useEffect, useState } from 'react';
 import Navbar from '@/app/components/Navbar';
 import axios from 'axios';
-import Loading from './loading';
-import Await from '@/app/components/Await';
 import { v4 as uuid } from 'uuid';
 import Dates from '@/app/components/Dates';
 
