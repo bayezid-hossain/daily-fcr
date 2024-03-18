@@ -78,7 +78,7 @@ const Entries: React.FC<EntriesProps> = ({ entries }) => {
       {entries.map((entry, index) => (
         <div
           className="rounded-lg shadow-lg p-6 m-4 mt-8 bg-white transition duration-300 transform hover:scale-110 text-black justify-start text-start ml-8 pl-10"
-          onDoubleClick={() => {
+          onClick={() => {
             handleCopy(entry);
           }}
           key={index}
