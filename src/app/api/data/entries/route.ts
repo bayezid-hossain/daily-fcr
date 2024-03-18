@@ -5,17 +5,15 @@ import { NextRequest, NextResponse } from 'next/server';
 connect();
 export async function POST(request: NextRequest) {
   try {
-    const user_info_cookie = request.headers.get('user_info_cookie') || '';
+    const token = request.headers.get('token') || '';
 
-    const verifieduser_info_cookie =
-      user_info_cookie &&
-      (await verifyAuth(user_info_cookie).catch((err: any) => {
+    const verifiedtoken =
+      token &&
+      (await verifyAuth(token).catch((err: any) => {
         console.log(err);
       }));
 
-    let userId = verifieduser_info_cookie
-      ? verifieduser_info_cookie.data?.id
-      : '';
+    let userId = verifiedtoken ? verifiedtoken.data?.id : '';
     console.log(userId);
     const entries = await Entry.find({ userId });
     console.log(entries);

@@ -29,17 +29,14 @@ export async function POST(request: NextRequest) {
       medicine,
     } = reqBody;
     //check if user exists
-    const user_info_cookie =
-      request.cookies.get('user_info_cookie')?.value || '';
+    const token = request.cookies.get('token')?.value || '';
 
-    const verifieduser_info_cookie =
-      user_info_cookie &&
-      (await verifyAuth(user_info_cookie).catch((err: any) => {
+    const verifiedtoken =
+      token &&
+      (await verifyAuth(token).catch((err: any) => {
         console.log(err);
       }));
-    let userId = verifieduser_info_cookie
-      ? verifieduser_info_cookie.data?.id
-      : '';
+    let userId = verifiedtoken ? verifiedtoken.data?.id : '';
     const entry = await Entry.create({
       userId: userId,
       date: date,

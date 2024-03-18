@@ -13,7 +13,7 @@ interface Date {
 }
 export default async function LoginPage() {
   const promise = loader();
-  console.log(cookies().get('user_info_cookie')?.value);
+  console.log(cookies().get('token')?.value);
   return (
     <div className="flex flex-col bg-white w-full  h-screen" key={uuid()}>
       <Navbar isUserApproved={true} />
@@ -35,7 +35,7 @@ export default async function LoginPage() {
 }
 async function loader() {
   // Fetch data from external API
-  const cok = getCookie('user_info_cookie', { cookies });
+  const cok = getCookie('token', { cookies });
   try {
     const response = await axios.post(
       `${process.env.DOMAIN}/api/data/dates`,

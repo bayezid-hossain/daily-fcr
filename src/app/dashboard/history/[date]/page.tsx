@@ -61,7 +61,7 @@ async function loader(date: string) {
       `${process.env.DOMAIN}/api/data/entries/${date}`,
       {
         withCredentials: true,
-        headers: { user_info_cookie: cookies().get('user_info_cookie')?.value },
+        headers: { token: cookies().get('token')?.value },
       }
     );
     const data: Entry[] = response.data.data;
