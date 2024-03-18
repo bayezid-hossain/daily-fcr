@@ -5,8 +5,9 @@ import { NextRequest, NextResponse } from 'next/server';
 connect();
 export async function POST(request: NextRequest) {
   try {
-    const reqBody = await request.json();
-    const { token } = reqBody;
+    let token = request.headers.get('Cookie') || '';
+    token = token.replaceAll('token=', '');
+    console.log(token);
     const verifiedToken =
       token &&
       (await verifyAuth(token).catch((err: any) => {

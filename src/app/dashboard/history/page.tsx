@@ -31,9 +31,15 @@ export default async function LoginPage() {
 async function loader() {
   // Fetch data from external API
   try {
-    const response = await axios.post(`${process.env.DOMAIN}/api/data/dates`, {
-      token: cookies().get('token')?.value,
-    });
+    const response = await axios.post(
+      `${process.env.DOMAIN}/api/data/dates`,
+      null,
+      {
+        headers: {
+          Cookie: cookies().toString(),
+        },
+      }
+    );
     const data: Date[] = response.data.data;
     // console.log(response.data);
 
