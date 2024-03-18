@@ -38,7 +38,7 @@ const Navbar: React.FC<NavbarProps> = ({ isUserApproved }) => {
       </div>
       <div className="flex justify-center items-center gap-4 mr-8">
         <button
-          className={`bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow ${
+          className={`bg-white hover:bg-gray-100 text-gray-800 sm:text-sm font-semibold py-2 px-4 border border-gray-400 rounded shadow ${
             !isUserApproved ? 'hidden' : ''
           }`}
           onClick={() => {
@@ -48,14 +48,14 @@ const Navbar: React.FC<NavbarProps> = ({ isUserApproved }) => {
           Dashboard
         </button>{' '}
         <button
-          className={`bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow ${
+          className={`bg-white hover:bg-gray-100 text-gray-800 sm:text-sm font-semibold py-2 px-4 border border-gray-400 rounded shadow ${
             !isUserApproved ? 'hidden' : ''
           }`}
           onClick={() => {
             router.push('/dashboard/history');
           }}
         >
-          View History
+          History
         </button>{' '}
         <ArrowTopRightOnSquareIcon
           className="h-[30px] text-white hover:cursor-pointer "
