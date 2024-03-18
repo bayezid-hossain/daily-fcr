@@ -9,7 +9,7 @@ interface Date {
   date: string;
 }
 
-export default async function LoginPage() {
+export default async function HistoryPage() {
   let dates: Date[] = [];
   const cookies = getCookies();
   const token = cookies.get('token')?.toString();
@@ -24,9 +24,6 @@ export default async function LoginPage() {
 
       <div className="flex flex-col">
         <p>{token}</p>
-        {response.data?.data.map((date: any, index: any) => (
-          <p key={index}>{date.date}</p>
-        ))}
 
         <p>{}</p>
         <Dates dates={response.data.data} />
