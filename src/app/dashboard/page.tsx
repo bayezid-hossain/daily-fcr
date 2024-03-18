@@ -9,7 +9,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { standardData } from '@/helpers/data';
 export default function Home() {
-  const [formData, setFormData] = useState({
+  const defaultFormData = {
     farmerName: '',
     location: '',
     totalDOCInput: '',
@@ -28,8 +28,10 @@ export default function Home() {
     farmStock511: '',
     disease: 'No',
     medicine: 'No',
-  });
+  };
+  const [formData, setFormData] = useState(defaultFormData);
   const [msgData, setMsgData] = useState('');
+  const [visibility, setVisibility] = useState(false);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
     if (
@@ -108,6 +110,8 @@ export default function Home() {
       console.log(response);
       console.log('Entry Saved success', response.data);
       toast.success('Entry success');
+      setFormData(defaultFormData);
+      setVisibility(false);
     } catch (error: any) {
       console.log(error);
       toast.error(error.response.data.error);
@@ -137,6 +141,14 @@ export default function Home() {
       Number(formData.avgWeight),
       Number(formData.totalDOCInput) - Number(formData.totalMortality)
     );
+    const messageDiv = document.getElementById('message_div');
+    if (messageDiv) {
+      setVisibility(true);
+      messageDiv.style.backgroundColor = '#FBEC50';
+      setTimeout(() => {
+        messageDiv.scrollIntoView({ behavior: 'smooth' });
+      }, 200);
+    }
   };
   return (
     <main className="bg-white flex min-h-screen items-center justify-center  flex-col">
@@ -149,7 +161,7 @@ export default function Home() {
           <div className="flex flex-row justify-around w-full mb-4 gap-x-4 lg:flex-col lg:gap-y-4">
             <form
               onSubmit={handleSubmit}
-              className="flex flex-col items-center text-black gap-y-2 px-6 rounded-lg shadow-2xl p-6 m-4 mt-8 bg-white transition duration-300 transform hover:scale-105  justify-start text-start ml-8 pl-10"
+              className=" grid grid-cols-2 items-center text-black gap-y-2 px-6 rounded-lg gap-x-6 shadow-2xl p-6 m-4 mt-8 bg-white transition duration-300 transform hover:scale-105  justify-start text-start ml-8 pl-10 md:grid-cols-1"
             >
               <label htmlFor="Farmer Name" className="blue-border-label">
                 <input
@@ -260,64 +272,72 @@ export default function Home() {
                 />
                 <span className="top-moving-span">Average Weight (in gm)</span>
               </label>
-              <label className="w-full flex ">Total Feed</label>
+              <div>
+                <label className="w-full flex m-4 font-semibold ">
+                  Total Feed
+                </label>
 
-              <label htmlFor="TotalFeed510" className="blue-border-label">
-                <input
-                  type="number"
-                  id="totalFeed510"
-                  name="totalFeed510"
-                  required
-                  value={formData.totalFeed510}
-                  className="peer text-input"
-                  placeholder="510"
-                  onChange={handleChange}
-                />
-                <span className="top-moving-span">510</span>
-              </label>
+                <label htmlFor="TotalFeed510" className="blue-border-label">
+                  <input
+                    type="number"
+                    id="totalFeed510"
+                    name="totalFeed510"
+                    required
+                    value={formData.totalFeed510}
+                    className="peer text-input"
+                    placeholder="510"
+                    onChange={handleChange}
+                  />
+                  <span className="top-moving-span">510</span>
+                </label>
 
-              <label className="blue-border-label">
-                <input
-                  type="number"
-                  required
-                  id="totalFeed511"
-                  name="totalFeed511"
-                  value={formData.totalFeed511}
-                  onChange={handleChange}
-                  className="peer text-input"
-                  placeholder="511"
-                />
-                <span className="top-moving-span">511</span>
-              </label>
-              <label className="w-full flex ">Farm Stock</label>
+                <label className="blue-border-label">
+                  <input
+                    type="number"
+                    required
+                    id="totalFeed511"
+                    name="totalFeed511"
+                    value={formData.totalFeed511}
+                    onChange={handleChange}
+                    className="peer text-input"
+                    placeholder="511"
+                  />
+                  <span className="top-moving-span">511</span>
+                </label>
+              </div>
+              <div>
+                <label className="w-full flex m-4 font-semibold">
+                  Farm Stock
+                </label>
 
-              <label className="blue-border-label">
-                <input
-                  type="number"
-                  id="farmStock510"
-                  name="farmStock510"
-                  required
-                  value={formData.farmStock510}
-                  onChange={handleChange}
-                  placeholder="510"
-                  className="peer text-input"
-                />
-                <span className="top-moving-span">510</span>
-              </label>
+                <label className="blue-border-label">
+                  <input
+                    type="number"
+                    id="farmStock510"
+                    name="farmStock510"
+                    required
+                    value={formData.farmStock510}
+                    onChange={handleChange}
+                    placeholder="510"
+                    className="peer text-input"
+                  />
+                  <span className="top-moving-span">510</span>
+                </label>
 
-              <label className="blue-border-label">
-                <input
-                  type="number"
-                  id="farmStock511"
-                  name="farmStock511"
-                  required
-                  value={formData.farmStock511}
-                  onChange={handleChange}
-                  className="peer text-input"
-                  placeholder="511"
-                />
-                <span className="top-moving-span">511</span>
-              </label>
+                <label className="blue-border-label">
+                  <input
+                    type="number"
+                    id="farmStock511"
+                    name="farmStock511"
+                    required
+                    value={formData.farmStock511}
+                    onChange={handleChange}
+                    className="peer text-input"
+                    placeholder="511"
+                  />
+                  <span className="top-moving-span">511</span>
+                </label>
+              </div>
               <label className="blue-border-label">
                 <input
                   type="text"
@@ -344,12 +364,17 @@ export default function Home() {
               </label>
               <button
                 type="submit"
-                className="bg-[skyblue]/50 text-black font-semibold  px-4 py-4 mt-6 shadow-xl border-black rounded-full w-full hover:bg-[green]/20"
+                className="bg-[skyblue]/50 text-black font-semibold  px-4 py-4 mt-6 shadow-xl border-black rounded-full w-full hover:bg-[green]/20 col-span-2"
               >
                 Calculate FCR
               </button>
             </form>{' '}
-            <div className="text-black whitespace-break-spaces leading-[.75] p-4 justify-center items-center rounded-lg shadow-2xl m-4 mt-8 bg-white transition duration-300 transform hover:scale-105 text-start ml-8 pl-10">
+            <div
+              className={`text-black whitespace-break-spaces leading-[.75] p-4 justify-center items-center rounded-lg shadow-2xl m-4 mt-8 bg-white transition duration-300 transform hover:scale-105 text-start ml-8 pl-10 ${
+                visibility ? 'block' : 'hidden'
+              }`}
+              id="message_div"
+            >
               {msgData}
               <button
                 onClick={handleCopy}
