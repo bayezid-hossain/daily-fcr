@@ -13,10 +13,10 @@ export default async function HistoryPage() {
   let dates: Date[] = [];
   const cookies = getCookies();
   const token = cookies.get('token')?.toString();
-  const response = await axios.post(`${process.env.DOMAIN}/api/data/dates`, {
-    token: token,
-  });
-  console.log(response.data);
+  // const response = await axios.post(`${process.env.DOMAIN}/api/data/dates`, {
+  //   token: token,
+  // });
+  // console.log(response.data);
 
   return (
     <div className="flex flex-col bg-white w-full h-screen" key={uuid()}>
@@ -26,7 +26,7 @@ export default async function HistoryPage() {
         <p>{token}</p>
 
         <p>{}</p>
-        <Dates dates={response.data.data} />
+        <Dates dates={dates} />
       </div>
     </div>
   );
