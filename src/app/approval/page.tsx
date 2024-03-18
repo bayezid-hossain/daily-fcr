@@ -2,7 +2,7 @@
 import React, { ChangeEvent, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 export default function LoginPage() {
-  const text = 'Please wait while your account is approved by an admin';
+  const text = 'Please wait while your account is being approved by an admin';
 
   return (
     <div className="flex flex-col bg-white w-full h-screen">
