@@ -51,7 +51,7 @@ async function loader() {
     const data: Date[] = response.data.data;
     // console.log(response.data);
 
-    return { props: { data, info: 'haksdhfkjashdfuesfhakeuhfakshdfu' } };
+    return { props: { data, info: cok ? cok : 'hello everyone' } };
   } catch (error: any) {
     console.log(error.message);
   }
