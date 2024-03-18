@@ -45,7 +45,7 @@ const config: Config = {
       xl: { max: '1200px' },
       lg: { max: '991px' },
       md: { max: '767px' },
-      sm: { max: '550px' },
+      sm: { max: '500px' },
       odd: { max: '403px', min: '376px' },
       xsm: { max: '375px' },
     },

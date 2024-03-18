@@ -74,11 +74,11 @@ const Entries: React.FC<EntriesProps> = ({ entries }) => {
     return <div>No entries available.</div>;
   }
   return (
-    <div className="w-full h-full grid grid-cols-3 gap-4 xl:grid-cols-2 sm:grid-cols-1">
+    <div className="w-full h-full grid grid-cols-4 gap-4 xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-1">
       {entries.map((entry, index) => (
         <div
           className="rounded-lg shadow-lg p-6 m-4 mt-8 bg-white transition duration-300 transform hover:scale-110 text-black justify-start text-start ml-8 pl-10"
-          onClick={() => {
+          onDoubleClick={() => {
             handleCopy(entry);
           }}
           key={index}
@@ -133,19 +133,19 @@ const Entries: React.FC<EntriesProps> = ({ entries }) => {
             </span>
           </p>
           <p className="text-sm">
-            <span className="font-bold">510:</span> {entry.totalFeed[510]}
+            <span className="font-bold">510:</span> {entry.totalFeed[510]} Bags
           </p>
           <p className="text-sm">
-            <span className="font-bold">511:</span> {entry.totalFeed[511]}
+            <span className="font-bold">511:</span> {entry.totalFeed[511]} Bags
           </p>
           <p className="text-sm">
             <span className="font-bold"> Farm Stock:</span>
           </p>
           <p className="text-sm">
-            <span className="font-bold">510:</span> {entry.farmStock[510]}
+            <span className="font-bold">510:</span> {entry.farmStock[510]} Bags
           </p>
           <p className="text-sm">
-            <span className="font-bold">511:</span> {entry.farmStock[511]}
+            <span className="font-bold">511:</span> {entry.farmStock[511]} Bags
           </p>
           <p className="text-sm">
             <span className="font-bold">Disease:</span> {entry.disease}
