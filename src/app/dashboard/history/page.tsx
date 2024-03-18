@@ -27,7 +27,9 @@ export default async function HistoryPage() {
 
       <div className="flex flex-col">
         <p>{token}</p>
-
+        {response.data?.data.map((date: any, index: any) => (
+          <p key={index}>{date.date}</p>
+        ))}
         <p>{}</p>
         <Dates dates={dates} />
       </div>
