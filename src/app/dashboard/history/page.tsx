@@ -13,12 +13,9 @@ export default async function HistoryPage() {
   let dates: Date[] = [];
   const cookies = getCookies();
   const token = cookies.get('token')?.toString();
-  const response = await axios.post(
-    `https://daily-fcr.vercel.app/api/data/dates`,
-    {
-      token: token,
-    }
-  );
+  const response = await axios.post(`${process.env.DOMAIN}/api/data/dates`, {
+    token: token,
+  });
   console.log(response.data);
 
   return (
