@@ -12,6 +12,7 @@ const config: Config = {
         'text-reveal':
           'text-reveal 5s cubic-bezier(0.77, 0, 0.175, 1) infinite',
         'animate-blink': 'blink 3s infinite',
+        'color-change': ' color-change 1s infinite alternate',
       },
       keyframes: {
         'text-reveal': {
@@ -34,6 +35,14 @@ const config: Config = {
           },
           '100%': {
             opacity: '1',
+          },
+        },
+        'color-change': {
+          '0%': {
+            backgroundColor: '#FBEC50',
+          },
+          '100%': {
+            backgroundColor: '#DAA520',
           },
         },
       },

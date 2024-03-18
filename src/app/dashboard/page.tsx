@@ -144,7 +144,6 @@ export default function Home() {
     const messageDiv = document.getElementById('message_div');
     if (messageDiv) {
       setVisibility(true);
-      messageDiv.style.backgroundColor = '#FBEC50';
       setTimeout(() => {
         messageDiv.scrollIntoView({ behavior: 'smooth' });
       }, 200);
@@ -372,7 +371,7 @@ export default function Home() {
             <div
               className={`text-black whitespace-break-spaces leading-[.75] p-4 justify-center items-center rounded-lg shadow-2xl m-4 mt-8 bg-white transition duration-300 transform hover:scale-105 text-start ml-8 pl-10 ${
                 visibility ? 'block' : 'hidden'
-              }`}
+              } animate-color-change`}
               id="message_div"
             >
               {msgData}
