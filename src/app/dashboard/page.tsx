@@ -161,7 +161,7 @@ export default function Home() {
           <div className="flex flex-row justify-around w-full mb-4 gap-x-4 lg:flex-col lg:gap-y-4">
             <form
               onSubmit={handleSubmit}
-              className=" grid grid-cols-2 items-center text-black gap-y-2 px-6 rounded-lg gap-x-6 shadow-2xl p-6 m-4 mt-8 bg-white transition duration-300 transform hover:scale-105  justify-start text-start ml-8 pl-10 md:grid-cols-1"
+              className=" grid grid-cols-2 items-center text-black gap-y-2 px-6 rounded-lg gap-x-6 shadow-2xl p-6 m-4 mt-8 bg-white transition duration-300 transform hover:scale-105  justify-start text-start ml-8 pl-10 sm:grid-cols-1"
             >
               <label htmlFor="Farmer Name" className="blue-border-label">
                 <input
@@ -364,7 +364,7 @@ export default function Home() {
               </label>
               <button
                 type="submit"
-                className="bg-[skyblue]/50 text-black font-semibold  px-4 py-4 mt-6 shadow-xl border-black rounded-full w-full hover:bg-[green]/20 col-span-2"
+                className="bg-[skyblue]/50 text-black font-semibold  px-4 py-4 mt-6 shadow-xl border-black rounded-full w-full hover:bg-[green]/20 col-span-2 sm:col-span-1"
               >
                 Calculate FCR
               </button>
