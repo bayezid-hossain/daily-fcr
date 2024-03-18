@@ -15,21 +15,10 @@ export default async function LoginPage() {
   let dates: Date[] = [];
   const cookies = getCookies();
   const token = cookies.get('token')?.toString();
-  const fetchData = async () => {
-    try {
-      const response = await axios.post(
-        `${process.env.DOMAIN}/api/data/dates`,
-        { token }
-      );
-
-      dates = response.data.data;
-    } catch (error: any) {
-      console.error('Error fetching dates:', error.message);
-    } finally {
-    }
-  };
-
-  await fetchData();
+  const response = await axios.post(`${process.env.DOMAIN}/api/data/dates`, {
+    token: token,
+  });
+  console.log(response.data);
 
   return (
     <div className="flex flex-col bg-white w-full h-screen" key={uuid()}>
@@ -37,7 +26,12 @@ export default async function LoginPage() {
 
       <div className="flex flex-col">
         <p>{token}</p>
-        <Dates dates={dates} />
+        {response.data?.data.map((date: any, index: any) => (
+          <p key={index}>{date.date}</p>
+        ))}
+
+        <p>{}</p>
+        <Dates dates={response.data.data} />
       </div>
     </div>
   );
