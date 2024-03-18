@@ -7,7 +7,6 @@ import Loading from './loading';
 import Await from '@/app/components/Await';
 import { v4 as uuid } from 'uuid';
 import Dates from '@/app/components/Dates';
-import toast from 'react-hot-toast';
 interface Date {
   date: string;
 }
@@ -23,7 +22,9 @@ export default async function LoginPage() {
             const dates: Date[] = result?.props?.data || [];
             return (
               <div className="flex flex-col">
-                <p>{result?.props?.cookie || 'nothing'}</p>
+                <p>
+                  {result?.props.info == '' ? 'nothing' : result?.props.info}
+                </p>
                 <Dates dates={dates} />
               </div>
             );
@@ -50,7 +51,7 @@ async function loader() {
     const data: Date[] = response.data.data;
     // console.log(response.data);
 
-    return { props: { data, cookie: 'haksdhfkjashdfuesfhakeuhfakshdfu' } };
+    return { props: { data, info: 'haksdhfkjashdfuesfhakeuhfakshdfu' } };
   } catch (error: any) {
     console.log(error.message);
   }
