@@ -195,6 +195,7 @@ const Entries: React.FC<EntriesProps> = ({ entries, token }) => {
                   e.stopPropagation();
                   setVisible(false);
                   try {
+                    console.log(process.env.NEXT_PUBLIC_DOMAIN);
                     const response = await axios.post(
                       `${process.env.NEXT_PUBLIC_DOMAIN}/api/data/entries/delete`,
                       { token: token, _id: entryToDelete }
