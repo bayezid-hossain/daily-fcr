@@ -79,7 +79,7 @@ const Entries: React.FC<EntriesProps> = ({ entries, token }) => {
     return <div>No entries available.</div>;
   }
   return (
-    <div className="w-full h-full grid grid-cols-4 gap-4 xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-1">
+    <div className="w-full h-auto grid grid-cols-4 gap-4 xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-1">
       {updatedEntries.map((entry, index) => (
         <div
           className="rounded-lg shadow-lg p-6 m-4 mt-8 bg-white transition duration-300 transform hover:scale-110 text-black justify-start text-start ml-8 pl-10 z-0"

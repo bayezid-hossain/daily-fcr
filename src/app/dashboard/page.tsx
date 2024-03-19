@@ -32,6 +32,7 @@ export default function Home() {
   const [formData, setFormData] = useState(defaultFormData);
   const [msgData, setMsgData] = useState('');
   const [visibility, setVisibility] = useState(false);
+  const [canSave, setCanSave] = useState(true);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
     if (
@@ -105,6 +106,7 @@ export default function Home() {
     return Number(fcr);
   };
   const handleSave = async () => {
+    setCanSave(false);
     try {
       const response = await axios.post('/api/data/entries/new', formData);
       console.log(response);
@@ -116,6 +118,7 @@ export default function Home() {
       console.log(error);
       toast.error(error.response.data.error);
     }
+    setCanSave(true);
   };
   const handleCopy = async () => {
     let dataToCopy = msgData;
@@ -383,7 +386,9 @@ export default function Home() {
               </button>
               <button
                 onClick={handleSave}
-                className="bg-[skyblue]/50 text-black font-semibold  px-4 py-4 mt-6 shadow-xl border-black rounded-full w-full hover:bg-[green]/20"
+                className={`bg-[skyblue]/50 text-black font-semibold  px-4 py-4 mt-6 shadow-xl border-black rounded-full w-full hover:bg-[green]/20 ${
+                  canSave ? '' : 'opacity-50 pointer-events-none'
+                }`}
               >
                 Save Data
               </button>
