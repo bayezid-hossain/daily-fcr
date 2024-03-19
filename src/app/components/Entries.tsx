@@ -196,7 +196,7 @@ const Entries: React.FC<EntriesProps> = ({ entries, token }) => {
                   setVisible(false);
                   try {
                     const response = await axios.post(
-                      `${process.env.DOMAIN}/api/data/entries/delete`,
+                      `${process.env.NEXT_PUBLIC_DOMAIN}/api/data/entries/delete`,
                       { token: token, _id: entryToDelete }
                     );
                     const newEntries = updatedEntries.filter(
