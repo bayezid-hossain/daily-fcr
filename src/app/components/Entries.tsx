@@ -75,7 +75,7 @@ const Entries: React.FC<EntriesProps> = ({ entries, token }) => {
     await copy(stringWithoutSpaces);
     toast.success('Message copied to clipboard!');
   };
-  if (!Array.isArray(entries)) {
+  if (!Array.isArray(entries) || entries.length == 0) {
     return <div>No entries available.</div>;
   }
   return (
