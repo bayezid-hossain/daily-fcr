@@ -1,9 +1,12 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-
+import { getCookies } from 'next-client-cookies/server';
 import copy from 'clipboard-copy';
+import { Dialog } from 'primereact/dialog';
+import axios from 'axios';
 interface Entry {
+  _id: string;
   date: string;
   farmerName: string;
   location: string;
@@ -30,9 +33,13 @@ interface Entry {
 
 interface EntriesProps {
   entries: Entry[];
+  token: string;
 }
 
-const Entries: React.FC<EntriesProps> = ({ entries }) => {
+const Entries: React.FC<EntriesProps> = ({ entries, token }) => {
+  const [updatedEntries, setUpdatedEntries] = useState(entries); // Initialize entries state
+  const [entryToDelete, setEntryToDelete] = useState('');
+  const [visible, setVisible] = useState(false);
   const handleCopy = async (entry: Entry) => {
     const msg = `\n
     Date: ${entry.date}\n
@@ -65,19 +72,17 @@ const Entries: React.FC<EntriesProps> = ({ entries }) => {
       .split('\n')
       .map((line) => line.trim())
       .join('\n');
-    console.log(stringWithoutSpaces);
     await copy(stringWithoutSpaces);
     toast.success('Message copied to clipboard!');
   };
-  //   console.log(entries);
   if (!Array.isArray(entries)) {
     return <div>No entries available.</div>;
   }
   return (
     <div className="w-full h-full grid grid-cols-4 gap-4 xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-1">
-      {entries.map((entry, index) => (
+      {updatedEntries.map((entry, index) => (
         <div
-          className="rounded-lg shadow-lg p-6 m-4 mt-8 bg-white transition duration-300 transform hover:scale-110 text-black justify-start text-start ml-8 pl-10"
+          className="rounded-lg shadow-lg p-6 m-4 mt-8 bg-white transition duration-300 transform hover:scale-110 text-black justify-start text-start ml-8 pl-10 z-0"
           onClick={() => {
             handleCopy(entry);
           }}
@@ -153,6 +158,63 @@ const Entries: React.FC<EntriesProps> = ({ entries }) => {
           <p className="text-sm">
             <span className="font-bold">Medicine:</span> {entry.medicine}
           </p>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setEntryToDelete(entry._id);
+              setVisible(true);
+            }}
+            className=" text-red-700 font-bold  px-4 py-2 mt-3 shadow-xl border-black rounded-lg w-auto hover:bg-[green]/20 col-span-2 sm:col-span-1 text-start z-10"
+          >
+            Remove Entry
+          </button>
+          <Dialog
+            visible={visible}
+            onHide={() => setVisible(false)}
+            className="w-[30vw] sm:w-[45vw] xsm:w-[60vw] xsm:text-sm sm:text-base xl:text-sm bg-white-700/60 rounded-lg h-[20vh] flex items-center justify-between blur-effect-theme"
+            header="Confirm Action"
+            headerClassName="flex flex-row justify-between items-center w-full mx-8 px-6 py-2 bg-black/80 text-black rounded-t-lg odd:text-sm"
+            closeOnEscape
+            dismissableMask
+            contentClassName="flex flex-col justify-center items-center w-full text-center text-black border-2 border-t-0 border-black/50 rounded-b-lg sm:text-sm"
+          >
+            <p>Are you sure you want to delete this entry?</p>
+            <div className="flex justify-around items-center w-full mt-6">
+              <button
+                className="bg-green-500 p-2 px-4 font-semibold rounded-lg"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setVisible(false);
+                }}
+              >
+                No
+              </button>
+              <button
+                className="bg-red-700 font-semibold p-2 px-4 rounded-lg text-red-800"
+                onClick={async (e) => {
+                  e.stopPropagation();
+                  setVisible(false);
+                  try {
+                    const response = await axios.post(
+                      `http://localhost:3000/api/data/entries/delete`,
+                      { token: token, _id: entryToDelete }
+                    );
+                    const newEntries = updatedEntries.filter(
+                      (e) => e._id !== entryToDelete
+                    );
+                    setUpdatedEntries(newEntries); // Update entries state
+
+                    toast.success('Entry Deleted');
+                    setEntryToDelete('');
+                  } catch (error: any) {
+                    toast.error(error.message);
+                  }
+                }}
+              >
+                Yes
+              </button>
+            </div>
+          </Dialog>
         </div>
       ))}
     </div>

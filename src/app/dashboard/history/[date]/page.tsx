@@ -8,6 +8,7 @@ import Entries from '@/app/components/Entries';
 import { v4 as uuid } from 'uuid';
 import { getCookies } from 'next-client-cookies/server';
 interface Entry {
+  _id: string;
   date: string;
   farmerName: string;
   location: string;
@@ -48,7 +49,7 @@ export default async function EntriesPage({
         <Await promise={promise}>
           {(result) => {
             const entries: Entry[] = result?.props?.data || [];
-            return <Entries entries={entries} />;
+            return <Entries entries={entries} token={token || ''} />;
           }}
         </Await>
       </Suspense>

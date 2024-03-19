@@ -153,7 +153,7 @@ export default function Home() {
     <main className="bg-white flex min-h-screen items-center justify-center  flex-col">
       <div className="flex flex-col items-center mb-12 w-full">
         <Navbar isUserApproved={true} />
-        <h3 className="bg-black text-black font-bold text-3xl italic px-4 py-2 m-4 mt-8 z-[1] shadow-lg animate-animate-blink">
+        <h3 className="bg-black text-black font-bold text-3xl italic px-4 py-2 m-4 mt-8 z-[1] shadow-lg animate-animate-blink cursor-none">
           Daily FCR Calculator
         </h3>
         <div className="w-full rounded-lg shadow-lg p-6 m-4 mt-8 bg-white transition duration-300 transform text-black justify-start text-start ml-8 pl-10 md:p-2 md:pl-5 md:m-2 md:ml-4 md:mt-4">

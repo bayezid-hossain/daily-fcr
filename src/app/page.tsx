@@ -136,7 +136,7 @@ export default function Home() {
   return (
     <main className="bg-white flex min-h-screen items-center justify-center p-12 flex-col">
       <div className="flex flex-col items-center mb-12 w-full">
-        <h1 className="bg-black text-black font-bold text-2xl italic px-4 py-2 mb-4">
+        <h1 className="bg-black text-black font-bold text-2xl italic px-4 py-2 mb-4 cursor-none">
           Daily FCR Calculator
         </h1>
         <div className="w-full">

@@ -12,6 +12,10 @@
 .blue-border-label {
   @apply relative block rounded-md border border-blue-500 shadow-sm focus-within:border-green-600 focus-within:ring-1 focus-within:ring-green-600 mb-4;
 }
+.blur-effect-theme {
+  @apply bg-white/50 bg-clip-padding backdrop-filter backdrop-blur bg-opacity-50 opacity-100 z-[100] shadow-sm shadow-slate-100 transition-all duration-300;
+}
+
 .text-input {
   @apply border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 p-2 mb-4;
 }
