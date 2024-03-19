@@ -164,16 +164,17 @@ const Entries: React.FC<EntriesProps> = ({ entries, token }) => {
               setEntryToDelete(entry._id);
               setVisible(true);
             }}
-            className=" text-red-700 font-bold  px-4 py-2 mt-3 shadow-xl border-black rounded-lg w-auto hover:bg-[green]/20 col-span-2 sm:col-span-1 text-start z-10"
+            className=" text-red-700 font-bold  px-4 py-2 mt-3 shadow-2xl rounded-lg w-auto col-span-2 sm:col-span-1 text-start z-10"
           >
             Remove Entry
           </button>
           <Dialog
+            onClick={(e) => e.stopPropagation()}
             visible={visible}
             onHide={() => setVisible(false)}
-            className="w-[30vw] sm:w-[45vw] xsm:w-[60vw] xsm:text-sm sm:text-base xl:text-sm bg-white-700/60 rounded-lg h-[20vh] flex items-center justify-between blur-effect-theme"
+            className="w-[30vw] lg:w-[50vw] md:w-[60vw] odd:w-[70vw] sm:w-[70vw] xsm:w-[80vw] xsm:text-sm sm:text-base xl:text-sm bg-white-700/60 rounded-lg h-[20vh] flex items-center justify-between blur-effect-theme"
             header="Confirm Action"
-            headerClassName="flex flex-row justify-between items-center w-full mx-8 px-6 py-2 bg-black/80 text-black rounded-t-lg odd:text-sm"
+            headerClassName="flex flex-row justify-between items-center w-full mx-8 px-6 border border-black py-2 bg-[black]/80 text-white rounded-t-lg odd:text-sm"
             closeOnEscape
             dismissableMask
             contentClassName="flex flex-col justify-center items-center w-full text-center text-black border-2 border-t-0 border-black/50 rounded-b-lg sm:text-sm"
