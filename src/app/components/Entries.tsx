@@ -164,7 +164,7 @@ const Entries: React.FC<EntriesProps> = ({ entries, token }) => {
               setEntryToDelete(entry._id);
               setVisible(true);
             }}
-            className=" text-red-700 font-bold  px-4 py-2 mt-3 shadow-2xl rounded-lg w-auto col-span-2 sm:col-span-1 text-start z-10"
+            className=" flex text-red-700 font-bold  py-2 mt-3 shadow-2xl rounded-lg w-auto text-start z-10"
           >
             Remove Entry
           </button>
